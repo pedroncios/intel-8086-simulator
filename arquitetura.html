@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Simulador de Microprocessador 8086</title>
+<style type="text/css">
+<!--
+body,td,th {
+	font-family: Courier New;
+	font-size: 12px;
+	color: #000000;
+}
+body {
+	background-image: url(imagens/background.PNG);
+	background-repeat: repeat;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+a:link {
+	color: #666666;
+}
+.style2 {
+	color: #333333;
+	font-size: 16px;
+}
+.style4 {
+	color: #333333;
+	font-weight: bold;
+	font-style: italic;
+}
+a:visited {
+	color: #666666;
+}
+-->
+</style>
+<script type="text/JavaScript">
+<!--
+
+
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+//-->
+</script>
+</head>
+
+<body>
+<div align="center">
+  <table width="800" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td width="62" background="imagens/left-side.png"></td>
+      <td width="676" bgcolor="#FFFFFF"><p><img src="imagens/banner.png" alt="" width="676" height="150" /></p></td>
+      <td width="62" background="imagens/right-side.png"></td>
+    </tr>
+    <tr>
+      <td width="62" background="imagens/left-side.png"></td>
+      <td width="676" bgcolor="#FFFFFF"><div align="center"><img src="imagens/chip.png" width="17" height="17" /> <a href="index.html">Home</a> <img src="imagens/chip.png" width="17" height="15" /> <a href="arquitetura.html">Arquitetura</a> <img src="imagens/chip.png" width="17" height="15" /> <a href="mnemonicos.html">Mnemonicos</a> <img src="imagens/chip.png" width="17" height="15" /> <a href="microinstrucoes.html">Micro Instru&ccedil;&otilde;es</a> <br />
+          <img src="imagens/chip.png" width="17" height="15" /> <a href="montador.html">Montador</a> <img src="imagens/chip.png" width="17" height="15" /> <a href="simulador.html">Simulador</a> <img src="imagens/chip.png" width="17" height="15" /> <a href="interface_ss.html">Interface &amp; Screen Shots</a> <img src="imagens/chip.png" width="17" height="15" /> <a href="download.html">Download</a> <img src="imagens/chip.png" width="17" height="15" /> <a href="conclusao.html">Conclus&atilde;o</a> <img src="imagens/mail.png" width="17" height="17" /> <a href="contato.html">Contato</a></div></td>
+      <td width="62" background="imagens/right-side.png"></td>
+    </tr>
+    <tr>
+      <td width="62" background="imagens/left-side.png"></td>
+      <td width="676" bgcolor="#FFFFFF"><div align="justify">
+        <p><br />
+     </p>
+        <p><span class="style2">Arquitetura Interna do Microprocessador 8086 </span></p>
+        <blockquote>
+          <p>&nbsp;</p>
+          <p>O 8086 divide-se  internamente em duas unidades:</p>
+          <p class="style4">Execution Unit (EU) - Unidade  de Execu&ccedil;&atilde;o:</p>
+          <ul>
+            <li> UAL - realiza opera&ccedil;&otilde;es aritm&eacute;ticas de +, -, X, / e  opera&ccedil;&otilde;es l&oacute;gicas AND, OR, NOT, XOR;</li>
+            <li>contem registradores para armazenamento tempor&aacute;rio  durante as opera&ccedil;&otilde;es, que s&atilde;o endere&ccedil;ados  por nome.</li>
+          </ul>
+        
+          <p class="style4"><strong>BUS Interface Unit (BIU) </strong>- <strong>Unidade de Interface de Barramento:</strong></p>
+          <ul>
+            <li> faz a comunica&ccedil;&atilde;o de dados entre a EU e o meio externo  (mem&oacute;ria, E/S);</li>
+            <li>controla a transmiss&atilde;o de sinais de endere&ccedil;os, dados e  controle;</li>
+            <li>controla a seq&uuml;&ecirc;ncia de busca e execu&ccedil;&atilde;o de instru&ccedil;&otilde;es;</li>
+            <li> mecanismo de pre-fetch: busca at&eacute; 6 instru&ccedil;&otilde;es futuras deixando-as na fila de instru&ccedil;&otilde;es (<em>instruction</em><em> queue</em>)  -&gt; aumento de velocidade.</li>
+            </ul>
+          
+          <blockquote>
+            <p>&nbsp;</p>
+          </blockquote>
+          <p><strong class="style4">Registradores: </strong><strong>elementos  de mem&oacute;ria muito r&aacute;pida dentro da CPU.</strong></p>
+          <ul>
+                <li>de dados, ou de prop&oacute;sito geral</li>
+              <li> de endere&ccedil;os (segmentos, apontadores e &iacute;ndices)</li>
+            <li> sinalizadores de estado e controle (FLAGS)</li>
+          </ul>
+          <p class="style4"><strong>Registradores de dados:</strong></p>
+          <p>AX e BX</p>
+          <ul>
+            <li>s&atilde;o todos registradores de 16 bits</li>
+            <li>utilizados nas opera&ccedil;&otilde;es aritm&eacute;ticas e l&oacute;gicas</li>
+            <li> podem ser usados como registradores de 16 ou 8 bits</li>
+          </ul>
+          <p>Registradores de 8 bits cada:<br />
+            AH e AL<br />
+            BH e BL<br />
+            &quot;H&quot; -&gt; byte alto ou  superior<br />
+            &quot;L&quot; -&gt; byte baixo ou  inferior</p>
+          <ul>
+            <li><span class="style4">AX (acumulador)</span> -&gt; utilizado como acumulador em opera&ccedil;&otilde;es aritm&eacute;ticas e l&oacute;gicas;  em instru&ccedil;&otilde;es de E/S, ajuste decimal, convers&atilde;o, etc.</li>
+            <li><span class="style4">BX (base)</span> -&gt;  usado como registrador de BASE para  referenciar posi&ccedil;&otilde;es de mem&oacute;ria. BX armazena o endere&ccedil;o BASE de uma tabela ou  vetor de dados, a partir do qual outras posi&ccedil;&otilde;es s&atilde;o obtidas adicionando-se um  valor de deslocamento (<em>offset</em>).</li>
+            </ul>
+          
+          <p class="style4"><strong>&nbsp;</strong></p>
+          <p class="style4"><strong>Registrador apontador de instru&ccedil;&atilde;o:</strong></p>
+          <p>IP (<em>instruction</em><em> pointer</em>)</p>
+          <ul>
+            <li>utilizado em conjunto com CS para localizar a posi&ccedil;&atilde;o, dentro do segmento de c&oacute;digo corrente,  da pr&oacute;xima instru&ccedil;&atilde;o a ser executada.</li>
+            <li>IP &eacute;  automaticamente incrementado em fun&ccedil;&atilde;o do n&uacute;mero de bytes da instru&ccedil;&atilde;o executada.</li>
+          </ul>
+          
+          <p>&nbsp;</p>
+          <p class="style4"><strong>Registradores apontador de pilha e de &iacute;ndice:</strong></p>
+          <ul>
+            <li>Armazenam valores de deslocamento de endere&ccedil;os (offset),  a fim de acessar regi&otilde;es da mem&oacute;ria muito utilizadas:
+              <ul>
+                <li>pilha,</li>
+                <li>blocos de dados,</li>
+                <li><em>arrays </em>e <em>strings</em>.</li>
+              </ul>
+              </li>
+            
+            <li>Podem ser utilizados em opera&ccedil;&otilde;es aritm&eacute;ticas e l&oacute;gicas, possibilitando  que os valores de deslocamento sejam resultados de computa&ccedil;&otilde;es anteriores.</li>
+          </ul>
+          <p>&middot; SP (<em>stack</em><em> pointer </em>- apontador de pilha) &eacute; utilizado em conjunto com SS, para acessar a  &aacute;rea de pilha na mem&oacute;ria; aponta para o topo da pilha.</p>
+          <p>&nbsp;</p>
+          <p class="style4"><strong>Registrador de sinalizadores (FLAGS):</strong></p>
+          <ul>
+                  <li>indica o estado do microprocessador durante a execu&ccedil;&atilde;o  de cada instru&ccedil;&atilde;o;</li>
+                <li> conjunto de bits individuais, cada qual indicando alguma  propriedade;</li>
+            <li> subdividem-se em: FLAGS da estado (<em>status</em>) e FLAGS<strong> </strong>de controle.</li>
+            <li> organiza&ccedil;&atilde;o:
+              <ul>
+                <li>1 registrador de 16 bits</li>
+                <li>6 FLAGS de estado</li>
+                <li>3 FLAGS de controle</li>
+                <li>7 bits n&atilde;o utilizados (sem  fun&ccedil;&atilde;o)</li>
+              </ul>
+              <blockquote>
+                <p><span lang="EN-US" xml:lang="EN-US">15 14 13  12 11 10 9 8 7 6 5 4 3 2 1 0</span><br />
+                    <span lang="EN-US" xml:lang="EN-US">OF DF IF TF SF ZF AF PF CF</span></p>
+              </blockquote>
+            </li>
+            </ul>
+          
+          <p class="style4"><strong>Flags de estado:</strong></p>
+          <p><u>CF - Flag de Carry</u> </p>
+          <p>CF = 1 -&gt; ap&oacute;s instru&ccedil;&otilde;es de soma que geram &quot;vai  um&quot; ap&oacute;s instru&ccedil;&otilde;es de subtra&ccedil;&atilde;o que n&atilde;o geram &quot;empr&eacute;stimo&quot;  (&quot;empresta um&quot;).</p>
+          <p>CF = 0 -&gt; caso contr&aacute;rio.</p>
+          <p><span lang="EN-US" xml:lang="EN-US">&nbsp;</span></p>
+          <p><u>ZF - Flag de Zero</u> </p>
+          <p>ZF = 1 -&gt; caso o resultado da  &uacute;ltima opera&ccedil;&atilde;o aritm&eacute;tica ou l&oacute;gica seja igual a zero;</p>
+          <p>ZF = 0 -&gt; caso contr&aacute;rio.</p>
+          <p>&nbsp;</p>
+          <p><u>SF - Flag de Sinal</u>: utilizado para indicar se o n&uacute;mero resultado &eacute; positivo ou negativo  em termos da aritm&eacute;tica em Complemento  de 2 (se n&atilde;o ocorrer erro de transbordamento - <em>overflow</em>).</p>
+          <p>SF = 1 -&gt; n&uacute;mero negativo.</p>
+          <p>SF = 0 -&gt; n&uacute;mero positivo.</p>
+          <p>&nbsp;</p>
+          <p><u>OF - Flag de Overflow</u> (erro de transbordamento).</p>
+          <p>OF = 1 -&gt; qualquer opera&ccedil;&atilde;o que produza <em>overflow</em>.</p>
+          <p><span lang="EN-US" xml:lang="EN-US">OF = 0  -&gt; caso contr&aacute;rio.</span></p>
+          <p><span lang="EN-US" xml:lang="EN-US">15 14 13  12 11 10 9 8 7 6 5 4 3 2 1 0</span><br />
+            <span lang="EN-US" xml:lang="EN-US">OF DF IF TF SF ZF AF PF CF</span></p>
+          <p><span lang="EN-US" xml:lang="EN-US">&nbsp;</span></p>
+          <p class="style4"><strong>Os registradores do 8086 (vis&atilde;o geral):</strong></p>
+          <p>Registradores de dados</p>
+          <ul>
+            <li>AH AL AX</li>
+            <li><span lang="EN-US" xml:lang="EN-US">BH BL BX</span></li>
+            </ul>
+          
+          <p>Registradores &iacute;ndices e apontadores</p>
+          <ul><li>IP</li>
+          </ul>
+          
+          <p>Registrador de sinalizadores</p>
+          <p class="style4">FLAGS</p>
+          <ul>
+            <li>O registrador IP<strong> </strong>corresponde ao Contador de Programa - PC</li>
+            <li> Todos os registradores s&atilde;o de 16 bits</li>
+            <li> AH -&gt;  byte alto de AX; AL byte baixo  de AX; ambos de 8 bits</li>
+            </ul>
+          <p>Gerenciamento de  mem&oacute;ria por segmenta&ccedil;&atilde;o</p>
+          <p>O 8086 possui  20 bits para acessar posi&ccedil;&otilde;es de mem&oacute;ria  f&iacute;sica<br />
+            220 = 1.048.576 bytes (1 Mbyte) posi&ccedil;&otilde;es endere&ccedil;&aacute;veis</p>
+          <p> Exemplos de endere&ccedil;os:</p>
+          <p>0000 0000 0000 0000 0000b -&gt;  00000h<br />
+            0000 0000 0000 0000 0001b -&gt;  00001h<br />
+            0000 0000 0000 0000 0010b -&gt;  00002h -&gt; 5 d&iacute;gitos hexa<br />
+            0000 0000 0000 0000 0011b -&gt;  00003h<br />
+            1111 1111 1111 1111 1111b -&gt; FFFFFh</p>
+          <p>&middot; O 8086 opera internamente com  16 bits</p>
+          <p>&middot; Problema:  Como gerar endere&ccedil;os com 20 bits?</p>
+          <p>&middot; Solu&ccedil;&atilde;o:  Utilizar a id&eacute;ia de segmenta&ccedil;&atilde;o de  mem&oacute;ria!</p>
+          <p><strong>Segmento de mem&oacute;ria:</strong></p>
+          <p>&middot; bloco de 64 Kbytes de posi&ccedil;&otilde;es de mem&oacute;ria consecutivas</p>
+          <p>&middot; 216 = 65.536 bytes (64 Kbytes)</p>
+          <p>&middot; Segmento de mem&oacute;ria &eacute; identificado por um n&uacute;mero de  segmento</p>
+          <p>&middot; Uma posi&ccedil;&atilde;o de  mem&oacute;ria &eacute; especificada pelo n&uacute;mero  de segmento e por um deslocamento  (<em>offset</em>)  em rela&ccedil;&atilde;o ao in&iacute;cio do segmento.</p>
+          <p>&nbsp;</p>
+          <p>&middot; O identificador de segmento (base) aponta para uma regi&atilde;o da mem&oacute;ria.</p>
+          <p>&middot; O offset aponta  para um local dentro deste  segmento.</p>
+          <p>&middot; O offset &eacute; aquele que aparece nos programas como o endere&ccedil;o  dos dados, r&oacute;tulos e endere&ccedil;os de instru&ccedil;&otilde;es.</p>
+          <p>&middot; O identificador de segmento aparece somente quando um novo segmento precisa ser  especificado.</p>
+          <p>&middot; Segmenta&ccedil;&atilde;o &eacute;  um esquema muito &uacute;til para gerar c&oacute;digos  reloc&aacute;veis.</p>
+          <p>&middot; A maioria das vari&aacute;veis  est&aacute; localizada no segmento de  dados, podem tamb&eacute;m estar localizadas em outros  segmentos;</p>
+          <p>&nbsp;</p>
+          <p><strong>Interrup&ccedil;&atilde;o:</strong></p>
+          <p><strong>&nbsp;</strong></p>
+          <p>Ocorr&ecirc;ncia  eventual, durante a execu&ccedil;&atilde;o de um processamento pelo computador, que  deve ser prontamente atendida,  causando a suspens&atilde;o do processamento  em curso para o atendimento da &quot;<em>chamada</em>&quot;.</p>
+          <p>&nbsp;</p>
+          <p><strong>Tipos de interrup&ccedil;&otilde;es do 8086:</strong></p>
+          <p>- Causadas pela ocorr&ecirc;ncia de eventos &quot;catastr&oacute;ficos&quot;:</p>
+          <p>&middot; falta de energia</p>
+          <p>&middot; erro de mem&oacute;ria</p>
+          <p>&middot; erro de paridade em comunica&ccedil;&otilde;es</p>
+          <p>&middot; este tipo de interrup&ccedil;&atilde;o n&atilde;o pode ser inibido.</p>
+          <p><strong>&nbsp;</strong></p>
+          <p>- Causadas pela a&ccedil;&atilde;o de dispositivos externos (perif&eacute;ricos):</p>
+          <p>&middot; podem ser habilitadas  ou inibidas</p>
+          <p>&nbsp;</p>
+          <p>- Causadas pelo pr&oacute;prio  programa em curso:</p>
+          <p>&middot; erro de divis&atilde;o</p>
+          <p>&middot; erro de transbordamento (<em>overflow</em>)</p>
+          <p>&middot; TRAP -  &uacute;til para depura&ccedil;&atilde;o de um programa</p>
+          <p>&middot; BREAKPOINT -  colocado em pontos estrat&eacute;gicos do programa para permitir processamento  especial.</p>
+          <p>&nbsp;</p>
+          <p>-Interrup&ccedil;&atilde;o RESET</p>
+          <p>&middot; permite a inicializa&ccedil;&atilde;o  do microprocessador, via <em>hardware</em>.</p>
+        </blockquote>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        </div></td>
+      <td width="62" background="imagens/right-side.png"></td>
+    </tr>
+    <tr>
+      <td width="62" background="imagens/left-side.png"></td>
+      <td width="676" bgcolor="#FFFFFF"><div align="center"> 
+        <p>Copyright &copy; 2007 Yamada-san.  All Rights Reserved.</p>
+        <p>&nbsp;</p>
+      </div></td>
+      <td width="62" background="imagens/right-side.png"></td>
+    </tr>
+  </table>
+</div>
+</body>
+
+</html>

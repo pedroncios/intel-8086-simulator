@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Simulador de Microprocessador 8086</title>
+<style type="text/css">
+<!--
+body,td,th {
+	font-family: Courier New;
+	font-size: 12px;
+	color: #000000;
+}
+body {
+	background-image: url(imagens/background.PNG);
+	background-repeat: repeat;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+a:link {
+	color: #666666;
+}
+.style2 {
+	color: #333333;
+	font-size: 16px;
+}
+.style3 {
+	color: #666666;
+	font-weight: bold;
+	font-style: italic;
+}
+a:visited {
+	color: #666666;
+}
+-->
+</style>
+<script type="text/JavaScript">
+<!--
+
+
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+//-->
+</script>
+</head>
+
+<body>
+<div align="center">
+  <table width="800" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td width="62" background="imagens/left-side.png"></td>
+      <td width="676" bgcolor="#FFFFFF"><p><img src="imagens/banner.png" alt="" width="676" height="150" /></p></td>
+      <td width="62" background="imagens/right-side.png"></td>
+    </tr>
+    <tr>
+      <td width="62" background="imagens/left-side.png"></td>
+      <td width="676" bgcolor="#FFFFFF"><div align="center">
+        <div align="center">
+          <p><img src="imagens/chip.png" width="17" height="17" /> <a href="index.html">Home</a> <img src="imagens/chip.png" width="17" height="15" /> <a href="arquitetura.html">Arquitetura</a> <img src="imagens/chip.png" width="17" height="15" /> <a href="mnemonicos.html">Mnemonicos</a> <img src="imagens/chip.png" width="17" height="15" /> <a href="microinstrucoes.html">Micro Instru&ccedil;&otilde;es</a> <br />
+            <img src="imagens/chip.png" width="17" height="15" /> <a href="montador.html">Montador</a> <img src="imagens/chip.png" width="17" height="15" /> <a href="simulador.html">Simulador</a> <img src="imagens/chip.png" width="17" height="15" /> <a href="interface_ss.html">Interface &amp; Screen Shots</a> <img src="imagens/chip.png" width="17" height="15" /> <a href="download.html">Download</a> <img src="imagens/chip.png" width="17" height="15" /> <a href="conclusao.html">Conclus&atilde;o</a> <img src="imagens/mail.png" width="17" height="17" /> <a href="contato.html">Contato</a></p>
+        </div>
+      </div></td>
+      <td width="62" background="imagens/right-side.png"></td>
+    </tr>
+    <tr>
+      <td width="62" background="imagens/left-side.png"></td>
+      <td width="676" bgcolor="#FFFFFF"><div align="justify">
+        <p><br />
+     <span class="style2">Mnemonicos suportados </span></p>
+          <blockquote>
+            <p class="style3">Diretivas</p>
+            <p>Uma linha de diretiva cont&eacute;m comandos para o montador.</p>
+            <ul>
+              <li>
+                A defini&ccedil;&atilde;o de &aacute;reas de vari&aacute;veis;</li>
+              <li>
+                Endere&ccedil;os de mem&oacute;ria onde a montagem deve ser  feita. </li>
+              <li>
+                Criar uma sub-rotina (procedure).</li>
+            </ul>
+            <p>Uma diretiva (pseudo-instru&ccedil;&atilde;o) desenvolve alguma  fun&ccedil;&atilde;o durante o processo de montagem. N&atilde;o produz qualquer c&oacute;digo execut&aacute;vel.  Pode reservar e inicializar
+             
+  &nbsp;espa&ccedil;o e dados do programa.</p>
+            <p class="style3">&nbsp;</p>
+            <p class="style3"><strong>Formato de  Diretivas</strong></p>
+            <p>Formato Geral:</p>
+            <p><em>[Nome] Diretiva  [Operandos] [; Coment&aacute;rio]</em></p>
+            <p>Diretivas implementadas:</p>
+            <ul>
+              <li>
+                
+                DB</li>
+              <li>
+                
+                DW</li>
+              <li>
+                
+                EQU</li>
+            </ul>
+            <p>&nbsp;</p>
+            <p class="style3">Diretiva DB </p>
+            <p>Fun&ccedil;&atilde;o: reserva um byte para vari&aacute;veis, permitindo  opcionalmente inicializ&aacute;-lo com um valor decimal. Formato:</p>
+            <p><em>[nomeVariavel] DB valorInicial [; Coment&aacute;rio]</em></p>
+            <p class="style3">&nbsp;</p>
+            <p class="style3">Diretiva DW </p>
+            <p> Fun&ccedil;&atilde;o: reserva  dois bytes para vari&aacute;veis, permitindo opcionalmente inicializ&aacute;-los  com um valor decimal. Formato:</p>
+            <p><em>[nomeVariavel] DW valorInicial [; Coment&aacute;rio]</em></p>
+            <p>&nbsp;</p>
+            <p class="style3">Diretiva EQU </p>
+            <p>Fun&ccedil;&atilde;o:  define o valor de um s&iacute;mbolo a ser usado posteriormente, no lugar de um dado  imediato, define uma constante. Formato:</p>
+            <p><em>[nomeConstante]  EQU valorConstante [; Coment&aacute;rio]</em></p>
+            <p>&nbsp;</p>
+            <p class="style3">Diretiva HLT </p>
+            <p>Fun&ccedil;&atilde;o:  usado para acabar com a execu&ccedil;&atilde;o (parar o processador). Formato:</p>
+            <p><em>HLT [; Coment&aacute;rio]</em></p>
+            <p>&nbsp;</p>
+            <p class="style3">Diretivas  PROC e ENDP, e Instru&ccedil;&otilde;es CALL e RET </p>
+            <p>As diretivas  PROC e ENDP servem para delimitar uma sub-rotina   (intra-segmento). Para &ldquo;chamar&rdquo; esta sub-rotina, &eacute; utilizada a instru&ccedil;&atilde;o CALL,  seguido do nome da sub-rotina. A instru&ccedil;&atilde;o RET indica o retorno do procedimento. Segue o exemplo:</p>
+            <p>ROTINA1  PROC&nbsp;&nbsp;; inicio da sub-rotina ROTINA1&nbsp;</p>
+            <p>...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;  instru&ccedil;&otilde;es da sub-rotina ROTINA1&nbsp;</p>
+            <p>RET</p>
+            <p>ROTINA1 ENDP&nbsp;&nbsp;; fim da sub-rotina ROTINA1&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>CALL&nbsp; ROTINA1&nbsp;&nbsp;&nbsp;;  chamada intra-segmento</p>
+            <p>&nbsp;</p>
+            <p class="style3">Labels(r&oacute;tulo)</p>
+            <p>O r&oacute;tulo deve ser definido uma &uacute;nica vez, e n&atilde;o pode  ser redefinido. Deve ser escrito no in&iacute;cio da linha e seguido de dois-pontos.</p>
+            <p>&nbsp;</p>
+            <p class="style3">Instru&ccedil;&otilde;es</p>
+            <p>Uma linha de instru&ccedil;&atilde;o cont&eacute;m um mnem&ocirc;nico de uma  instru&ccedil;&atilde;o do simulador. Cada linha gera exatamente uma instru&ccedil;&atilde;o de m&aacute;quina. Formato  geral: </p>
+            <p><em>Mnem&ocirc;nico [Operando1], [Operando2] [; Coment&aacute;rio]</em></p>
+            <p>Nos operandos instanciados na mem&oacute;ria (vari&aacute;veis) o  acesso ser&aacute; feito de dois modos: endere&ccedil;o e conte&uacute;do. Por exemplo, para acesso  ao endere&ccedil;o da vari&aacute;vel x usa-se somente o nome da vari&aacute;vel, para acesso ao  conte&uacute;do de x usa-se colchetes, [x].</p>
+            <p class="style3"><strong>Conjunto de instru&ccedil;&otilde;es suportadas:</strong></p>
+            <ul>
+              <li>
+                
+                Para movimenta&ccedil;&atilde;o de dados;</li>
+              <li>
+                
+                Para opera&ccedil;&otilde;es aritm&eacute;ticas/l&oacute;gicas;</li>
+              <li>
+                
+                Desvio do fluxo do programa.</li>
+            </ul>
+            <h4>&nbsp;</h4>
+            <p class="style3">Movimenta&ccedil;&atilde;o de Dados </p>
+            <ul>
+              <li>
+                
+                Mnem&ocirc;nico <strong>MOV</strong>:  copia o segundo operando (fonte) para o primeiro operando (destino). Os tipos  de operandos suportados s&atilde;o:</li>
+            </ul>
+            <blockquote>
+              <p><em>MOV REG, mem&oacute;ria</em><br />
+              <em>MOV mem&oacute;ria, REG<br />
+              </em><em>MOV REG, REG<br />
+              </em><em>MOV mem&oacute;ria, imediato<br />
+              </em><em>MOV REG, imediato</em></p>
+              <p>&nbsp;</p>
+            </blockquote>
+            <p class="style3">Opera&ccedil;&otilde;es aritm&eacute;ticas/l&oacute;gicas </p>
+            <ul>
+              <li>
+                
+                Mnem&ocirc;nico <strong>ADD</strong>:  soma o primeiro operando com o segundo, o resultado fica armazenado no primeiro  operando.</li>
+              <li>
+                
+                Mnem&ocirc;nico <strong>SUB</strong>:  subtrai o primeiro operando pelo segundo, o resultado fica armazenado no  primeiro operando.</li>
+              <li>
+                
+                Mnem&ocirc;nico <strong>AND</strong>:  &ldquo;E&rdquo; entre todos os bits de cada operando, o resultado fica armazenado no  primeiro operando.</li>
+              <li>
+                
+                Mnem&ocirc;nico <strong>OR</strong>:  &ldquo;OU&rdquo; entre todos os bits de cada operando, o resultado fica armazenado no  primeiro operando.</li>
+              <li>
+                
+                Mnem&ocirc;nico <strong>XOR</strong>:  &ldquo;OU EXCLUSIVO&rdquo; entre todos os bits de cada operando, o resultado fica  armazenado no primeiro operando.</li>
+            </ul>
+            <blockquote>
+              <p>Os tipos de  operandos suportados pelos mnem&ocirc;nicos acima s&atilde;o:</p>
+              <p><em>[Mnem&ocirc;nico] REG, mem&oacute;ria</em><br />
+                <em>[Mnem&ocirc;nico] mem&oacute;ria, REG<br />
+              </em><em>[Mnem&ocirc;nico] REG, REG<br />
+              </em><em>[Mnem&ocirc;nico] mem&oacute;ria, imediato<br />
+            </em><em>[Mnem&ocirc;nico] REG, imediato</em></p>
+            </blockquote>
+            <ul>
+              <li>
+                
+                Mnem&ocirc;nico <strong>MUL</strong>:  multiplica&ccedil;&atilde;o n&atilde;o-sinalizada do primeiro operando pelo segundo, sendo que o  primeiro operando obrigatoriamente &eacute; o registrador AL. O resultado da opera&ccedil;&atilde;o  sempre ser&aacute; armazenado no registrador AX. Os tipos de operandos suportados s&atilde;o:</li>
+            </ul>
+            <blockquote>
+              <p><em>MUL mem&oacute;ria</em><br />
+                <em>MUL REG</em></p>
+            </blockquote>
+            <ul>
+              <li>
+                
+                Mnem&ocirc;nico <strong>DIV</strong>:  divis&atilde;o n&atilde;o-sinalizada do primeiro operando pelo segundo, sendo que o primeiro  operando obrigatoriamente &eacute; o registrador AX. O quociente da opera&ccedil;&atilde;o sempre  ser&aacute; armazenado no registrador AL e o resto da opera&ccedil;&atilde;o no registrador AH. Os  tipos de operandos suportados s&atilde;o:</li>
+            </ul>
+            <blockquote>
+              <p><em>DIV mem&oacute;ria</em><br />
+                <em>DIV REG</em></p>
+            </blockquote>
+            <ul>
+              <li>
+                
+                Mnem&ocirc;nico <strong>NOT</strong>:  inverte cada bit do operando.</li>
+            </ul>
+            <blockquote>
+              <p>Os tipos de  operandos suportados s&atilde;o:</p>
+              <p><em>NOT REG</em><br />
+                <em>NOT mem&oacute;ria</em></p>
+            </blockquote>
+            <p>&nbsp;</p>
+            <ul>
+              <li>
+                
+                Mnem&ocirc;nico <strong>CMP</strong>:  compara o primeiro operando com o segundo, e em seguida usa-se um &quot;salto&quot; para concluir a compara&ccedil;&atilde;o (desviando o fluxo do programa). </li>
+            </ul>
+            <blockquote>
+              <p>Exemplo de  utiliza&ccedil;&atilde;o:</p>
+              <p><em>CMP AL, 2</em><br />
+                <em>JE label ; pode ser outro &quot;salto&quot; a ser  utilizado, &quot;saltosque ser&atilde;o tratados no t&oacute;pico abaixo.</em></p>
+              <p class="style3">&nbsp;</p>
+              <p class="style3">Desvio do Fluxo do Programa </p>
+            </blockquote>
+            <ul>
+              <li>
+                
+                Mnem&ocirc;nico <strong>JMP</strong>:  Salto incondicional, precisa ser passado apenas o r&oacute;tulo,  que este jump transfere o controle para outra parte  do programa.</li>
+            </ul>
+            <blockquote>
+              <p><em>JMP label</em></p>
+            </blockquote>
+            <ul>
+              <li>
+                
+                Mnem&ocirc;nicos <strong>JE,  JNE, JG, JGE, JL e JLE</strong>: Saltos que representam as opera&ccedil;&otilde;es de compara&ccedil;&atilde;o ==,!=,&gt;,&gt;=,&lt;,&lt;= respectivamente, sua utiliza&ccedil;&atilde;o &eacute; a mesma da instru&ccedil;&atilde;o JMP.
+                <!--[if gte mso 9]><xml>   <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1025"    DrawAspect="Content" ObjectID="_1244037205">   </o:OLEObject>  </xml><![endif]-->
+              </li>
+            </ul>
+            <blockquote>
+              <p>*Opera&ccedil;&otilde;es equivalentes a linguagem  C.</p>
+              <p>&nbsp;</p>
+            </blockquote>
+            <ul>
+              <li>
+                
+                Mnem&ocirc;nico <strong>CALL</strong>:  transfere o controle para uma sub-rotina (procedure).</li>
+            </ul>
+            <blockquote>
+              <p><em>CALL procedure</em></p>
+            </blockquote>
+          </blockquote>
+          <p>&nbsp;</p>
+      </div></td>
+      <td width="62" background="imagens/right-side.png"></td>
+    </tr>
+    <tr>
+      <td width="62" background="imagens/left-side.png"></td>
+      <td width="676" bgcolor="#FFFFFF"><div align="center"> 
+        <p>Copyright &copy; 2007 Yamada-san.  All Rights Reserved.</p>
+        <p>&nbsp;</p>
+      </div></td>
+      <td width="62" background="imagens/right-side.png"></td>
+    </tr>
+  </table>
+</div>
+</body>
+
+</html>

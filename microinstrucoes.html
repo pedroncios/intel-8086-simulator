@@ -1,0 +1,842 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Simulador de Microprocessador 8086</title>
+<style type="text/css">
+<!--
+body,td,th {
+	font-family: Courier New;
+	font-size: 12px;
+	color: #000000;
+}
+body {
+	background-image: url(imagens/background.PNG);
+	background-repeat: repeat;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+a:link {
+	color: #666666;
+}
+a:visited {
+	color: #666666;
+}
+.style2 {font-size: 16px}
+.style3 {font-size: 16px; color: #333333; }
+-->
+</style>
+<script type="text/JavaScript">
+<!--
+
+
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+//-->
+</script>
+</head>
+
+<body>
+<div align="center">
+  <table width="800" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td width="62" background="imagens/left-side.png"></td>
+      <td width="676" bgcolor="#FFFFFF"><p><img src="imagens/banner.png" alt="" width="676" height="150" /></p></td>
+      <td width="62" background="imagens/right-side.png"></td>
+    </tr>
+    <tr>
+      <td width="62" background="imagens/left-side.png"></td>
+      <td width="676" bgcolor="#FFFFFF"><div align="center">
+        <p><img src="imagens/chip.png" width="17" height="17" /> <a href="index.html">Home</a> <img src="imagens/chip.png" width="17" height="15" /> <a href="arquitetura.html">Arquitetura</a>  <img src="imagens/chip.png" width="17" height="15" /> <a href="mnemonicos.html">Mnemonicos</a> <img src="imagens/chip.png" width="17" height="15" /> <a href="microinstrucoes.html">Micro Instru&ccedil;&otilde;es</a> <br />
+          <img src="imagens/chip.png" width="17" height="15" /> <a href="montador.html">Montador</a> <img src="imagens/chip.png" width="17" height="15" /> <a href="simulador.html">Simulador</a> <img src="imagens/chip.png" width="17" height="15" /> <a href="interface_ss.html">Interface &amp; Screen Shots</a> <img src="imagens/chip.png" width="17" height="15" /> <a href="download.html">Download</a> <img src="imagens/chip.png" width="17" height="15" /> <a href="conclusao.html">Conclus&atilde;o</a> <img src="imagens/mail.png" width="17" height="17" /> <a href="contato.html">Contato</a></p>
+        </div></td>
+      <td width="62" background="imagens/right-side.png"></td>
+    </tr>
+    <tr>
+      <td width="62" background="imagens/left-side.png"></td>
+      <td width="676" bgcolor="#FFFFFF"><p class="style2">&nbsp;</p>
+        <p align="justify" class="style3">Detalhamento das Micro-opera&ccedil;&otilde;es:</p>
+        <blockquote>
+          <p align="justify"><strong>Instru&ccedil;&atilde;o ADD</strong></p>
+          <p align="justify"><strong>Modifica&ccedil;&atilde;o das  Flags:</strong></p>
+        </blockquote>
+        
+        <div align="center">
+          <table border="1" cellpadding="0">
+            <tr>
+              <td><br />
+                C </td>
+              <td><p>Z</p></td>
+              <td><p>S</p></td>
+              <td><p>O</p></td>
+              <td><p>P</p></td>
+              <td><p>A</p></td>
+            </tr>
+            <tr>
+              <td><p>r</p></td>
+              <td><p>r</p></td>
+              <td><p>r</p></td>
+              <td><p>r</p></td>
+              <td><p>r</p></td>
+              <td><p>r</p></td>
+            </tr>
+              </table>
+        </div>
+          <blockquote>
+          <p align="justify"><strong>Funcionamento:</strong></p>
+          <p align="justify">add reg1,  reg2<br />
+            Abus = reg1<br />
+            tmp1 = Abus<br />
+            Abus = reg2<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa add(na ULA) -&gt; Gera flags<br />
+            Abus = resultado add<br />
+            reg1 = Abus</p>
+        </blockquote>
+        <div> </div>
+        <blockquote>
+          <p align="justify">&nbsp;</p>
+          <p align="justify">add reg1, memoria<br />
+            Abus = reg1<br />
+            tmp1 = Abus<br />
+            Abus = memoria[op1]<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa add(na ULA) -&gt; Gera flags<br />
+            Abus = resultado add<br />
+            reg1 = Abus</p>
+        </blockquote>
+        <div> </div>
+        <blockquote>
+          <p align="justify">&nbsp;</p>
+          <p align="justify">add memoria, reg1<br />
+            Abus = memoria[op1]<br />
+            tmp1 = Abus<br />
+            Abus = reg1<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa add(na ULA) -&gt; Gera flags<br />
+            Abus = resultado add<br />
+            memoria[op1] = Abus</p>
+        </blockquote>
+        <div> </div>
+        <blockquote>
+          <p align="justify">&nbsp;</p>
+          <p align="justify">add reg1, imediato<br />
+            Abus = reg1<br />
+            tmp1 = Abus<br />
+            Abus = imediato<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa add(na ULA) -&gt; Gera flags<br />
+            Abus = resultado add<br />
+            reg1 = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">add memoria, imediato<br />
+            Abus = memoria[op1]<br />
+            tmp1 = Abus<br />
+            Abus = imediato<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa add(na ULA) -&gt; Gera flags<br />
+            Abus = resultado add<br />
+            memoria = Abus</p>
+          <p align="justify">_____________________________________________________________________</p>
+          <p align="justify">&nbsp;</p>
+          <p align="justify"><strong>Instru&ccedil;&atilde;o SUB</strong></p>
+          <p align="justify"><strong>Modifica&ccedil;&atilde;o das  Flags:</strong></p>
+        </blockquote>
+        
+        <div align="center">
+          <table border="1" cellpadding="0">
+            <tr>
+              <td><br />
+                C </td>
+              <td><p>Z</p></td>
+              <td><p>S</p></td>
+              <td><p>O</p></td>
+              <td><p>P</p></td>
+              <td><p>A</p></td>
+            </tr>
+            <tr>
+              <td><p>r</p></td>
+              <td><p>r</p></td>
+              <td><p>r</p></td>
+              <td><p>r</p></td>
+              <td><p>r</p></td>
+              <td><p>r</p></td>
+            </tr>
+              </table>
+        </div>
+          <blockquote>
+          <p align="justify"><strong>Funcionamento:</strong></p>
+          <p align="justify">sub reg1, reg2<br />
+            Abus = reg1<br />
+            tmp1 = Abus<br />
+            Abus = reg2<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa sub(na ULA) -&gt; Gera flags<br />
+            Abus = resultado sub<br />
+            reg1 = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">sub reg1, memoria<br />
+            Abus = reg1<br />
+            tmp1 = Abus<br />
+            Abus = memoria[op1]<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa sub(na ULA) -&gt; Gera flags<br />
+            Abus = resultado sub<br />
+            reg1 = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">sub memoria, reg1<br />
+            Abus = memoria[op1]<br />
+            tmp1 = Abus<br />
+            Abus = reg1<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa sub(na ULA) -&gt; Gera flags<br />
+            Abus = resultado sub<br />
+            memoria[op1] = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">sub reg1, imediato<br />
+            Abus = reg1<br />
+            tmp1 = Abus<br />
+            Abus = imediato<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa sub(na ULA) -&gt; Gera flags<br />
+            Abus = resultado sub<br />
+            reg1 = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">&nbsp;</p>
+          <p align="justify">sub memoria, imediato<br />
+            Abus = memoria[op1]<br />
+            tmp1 = Abus<br />
+            Abus = imediato<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa sub(na ULA) -&gt; Gera flags<br />
+            Abus = resultado sub<br />
+            memoria = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">&nbsp;</p>
+          <p align="justify"><strong>Instru&ccedil;&atilde;o AND</strong></p>
+          <p align="justify"><strong>Modifica&ccedil;&atilde;o das  Flags:</strong></p>
+        </blockquote>
+        
+        <div align="center">
+          <table border="1" cellpadding="0">
+            <tr>
+              <td><br />
+                C </td>
+              <td><p>Z</p></td>
+              <td><p>S</p></td>
+              <td><p>O</p></td>
+              <td><p>P</p></td>
+            </tr>
+            <tr>
+              <td><p>0</p></td>
+              <td><p>r</p></td>
+              <td><p>r</p></td>
+              <td><p>0</p></td>
+              <td><p>r</p></td>
+            </tr>
+              </table>
+        </div>
+          <blockquote>
+          <p align="justify"><strong>Funcionamento:</strong></p>
+          <p align="justify">and reg1,  reg2<br />
+            Abus = reg1<br />
+            tmp1 = Abus<br />
+            Abus = reg2<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa and(na ULA) -&gt; Gera flags<br />
+            Abus =  resultado and<br />
+            reg1 = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">and reg1,  memoria<br />
+            Abus = reg1<br />
+            tmp1 = Abus<br />
+            Abus = memoria[op1]<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa and(na ULA) -&gt; Gera flags<br />
+            Abus =  resultado and<br />
+            reg1 = Abus</p>
+          <p align="justify">____________________________________________________________ </p>
+          <p align="justify">and  memoria, reg1<br />
+            Abus = memoria[op1]<br />
+            tmp1 = Abus<br />
+            Abus = reg1<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa and(na ULA) -&gt; Gera flags<br />
+            Abus = resultado and<br />
+            memoria[op1] = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">and reg1, imediato<br />
+            Abus = reg1<br />
+            tmp1 = Abus<br />
+            Abus = imediato<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa and(na ULA) -&gt; Gera flags<br />
+            Abus = resultado and<br />
+            reg1 = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">and memoria, imediato<br />
+            Abus = memoria[op1]<br />
+            tmp1 = Abus<br />
+            Abus = imediato<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa and(na ULA) -&gt; Gera flags<br />
+            Abus = resultado and<br />
+            memoria = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify"><strong>Instru&ccedil;&atilde;o XOR</strong></p>
+          <p align="justify"><strong>Modifica&ccedil;&atilde;o das  Flags:</strong> </p>
+        </blockquote>
+        
+        <div align="center">
+          <table border="1" cellpadding="0">
+            <tr>
+              <td><br />
+                C </td>
+              <td><p>Z</p></td>
+              <td><p>S</p></td>
+              <td><p>O</p></td>
+              <td><p>P</p></td>
+              <td><p>A</p></td>
+            </tr>
+            <tr>
+              <td><p>0</p></td>
+              <td><p>r</p></td>
+              <td><p>r</p></td>
+              <td><p>0</p></td>
+              <td><p>r</p></td>
+              <td><p>?</p></td>
+            </tr>
+              </table>
+        </div>
+          <blockquote>
+          <p align="justify"><strong>Funcionamento:</strong></p>
+          <p align="justify">xor reg1,  reg2<br />
+            Abus = reg1<br />
+            tmp1 = Abus<br />
+            Abus = reg2<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa xor(na ULA) -&gt; Gera flags<br />
+            Abus = resultado xor<br />
+            reg1 = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">xor reg1, memoria<br />
+            Abus = reg1<br />
+            tmp1 = Abus<br />
+            Abus = memoria[op1]<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa xor(na ULA) -&gt; Gera flags<br />
+            Abus = resultado xor<br />
+            reg1 = Abus</p>
+          <p align="justify">____________________________________________________________</p>
+          <p align="justify">xor memoria, reg1<br />
+            Abus = memoria[op1]<br />
+            tmp1 = Abus<br />
+            Abus = reg1<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa xor(na ULA) -&gt; Gera flags<br />
+            Abus = resultado xor<br />
+            memoria[op1] = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">xor reg1, imediato<br />
+            Abus = reg1<br />
+            tmp1 = Abus<br />
+            Abus = imediato<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa xor(na ULA) -&gt; Gera flags<br />
+            Abus = resultado xor<br />
+            reg1 = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">xor memoria, imediato<br />
+            Abus = memoria[op1]<br />
+            tmp1 = Abus<br />
+            Abus = imediato<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa xor(na ULA) -&gt; Gera flags<br />
+            Abus = resultado xor<br />
+            memoria = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify"><strong>Instru&ccedil;&atilde;o OR</strong></p>
+          <p align="justify"><strong>Modifica&ccedil;&atilde;o das  Flags:</strong> </p>
+        </blockquote>
+        
+        <div align="center">
+          <table border="1" cellpadding="0">
+            <tr>
+              <td><br />
+                C </td>
+              <td><p>Z</p></td>
+              <td><p>S</p></td>
+              <td><p>O</p></td>
+              <td><p>P</p></td>
+              <td><p>A</p></td>
+            </tr>
+            <tr>
+              <td><p>0</p></td>
+              <td><p>r</p></td>
+              <td><p>r</p></td>
+              <td><p>0</p></td>
+              <td><p>r</p></td>
+              <td><p>?</p></td>
+            </tr>
+              </table>
+        </div>
+          <blockquote>
+          <p align="justify"><strong>Funcionamento:</strong></p>
+          <p align="justify">or reg1,  reg2<br />
+            Abus = reg1<br />
+            tmp1 = Abus<br />
+            Abus = reg2<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa or(na ULA) -&gt; Gera flags<br />
+            Abus = resultado or<br />
+            reg1 = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">or reg1, memoria<br />
+            Abus = reg1<br />
+            tmp1 = Abus<br />
+            Abus = memoria[op1]<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa or (na ULA) -&gt; Gera flags<br />
+            Abus = resultado or<br />
+            reg1 = Abus</p>
+          <p align="justify">____________________________________________________________</p>
+          <p align="justify">or memoria, reg1<br />
+            Abus = memoria[op1]<br />
+            tmp1 = Abus<br />
+            Abus = reg1<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa or (na ULA) -&gt; Gera flags<br />
+            Abus = resultado or<br />
+            memoria[op1] = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">or reg1, imediato<br />
+            Abus = reg1<br />
+            tmp1 = Abus<br />
+            Abus = imediato<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa or (na ULA) -&gt; Gera flags<br />
+            Abus = resultado or<br />
+            reg1 = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">or memoria, imediato<br />
+            Abus = memoria[op1]<br />
+            tmp1 = Abus<br />
+            Abus = imediato<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa or (na ULA) -&gt; Gera flags<br />
+            Abus = resultado or<br />
+            memoria = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">&nbsp;</p>
+          <p align="justify"><strong>Instru&ccedil;&atilde;o MUL</strong></p>
+          <p align="justify"><strong>Modifica&ccedil;&atilde;o das  Flags:</strong> </p>
+        </blockquote>
+        
+        <div align="center">
+          <table border="1" cellpadding="0">
+            <tr>
+              <td><br />
+                C </td>
+              <td><p>Z</p></td>
+              <td><p>S</p></td>
+              <td><p>O</p></td>
+              <td><p>P</p></td>
+              <td><p>A</p></td>
+            </tr>
+            <tr>
+              <td><p>r</p></td>
+              <td><p>?</p></td>
+              <td><p>?</p></td>
+              <td><p>r</p></td>
+              <td><p>?</p></td>
+              <td><p>?</p></td>
+            </tr>
+              </table>
+        </div>
+          <blockquote>
+          <p align="justify"><strong>Funcionamento:</strong></p>
+          <p align="justify">mul memoria<br />
+            Abus = Reg-AL<br />
+            tmp1 = Abus<br />
+            Abus = memoria[op1]<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa mul(na ULA) -&gt; Gera flags<br />
+            Abus = resultado mul<br />
+            Reg-AX = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">mul reg1<br />
+            Abus =  Reg-AL<br />
+            tmp1 = Abus<br />
+            Abus = reg1<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa mul(na ULA) -&gt; Gera flags<br />
+            Abus = resultado mul<br />
+            Reg-AX = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">&nbsp;</p>
+          <p align="justify"><strong>Instru&ccedil;&atilde;o DIV</strong></p>
+          <p align="justify"><strong>Modifica&ccedil;&atilde;o das  Flags:</strong> </p>
+        </blockquote>
+        
+        <div align="center">
+          <table border="1" cellpadding="0">
+            <tr>
+              <td><br />
+                C </td>
+              <td><p>Z</p></td>
+              <td><p>S</p></td>
+              <td><p>O</p></td>
+              <td><p>P</p></td>
+              <td><p>A</p></td>
+            </tr>
+            <tr>
+              <td><p>?</p></td>
+              <td><p>?</p></td>
+              <td><p>?</p></td>
+              <td><p>?</p></td>
+              <td><p>?</p></td>
+              <td><p>?</p></td>
+            </tr>
+              </table>
+        </div>
+          <blockquote>
+          <p align="justify"><strong>Funcionamento:</strong></p>
+          <p align="justify">div memoria<br />
+            Abus = Reg-AX<br />
+            tmp1 = Abus<br />
+            Abus = memoria[op1]<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa div(na ULA) -&gt; Gera flags<br />
+            Abus = quociente<br />
+            Reg-AL = Abus<br />
+            Abus = resto<br />
+            Reg-AH =  Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">div reg1<br />
+            Abus =  Reg-AX<br />
+            tmp1 = Abus<br />
+            Abus = reg1<br />
+            tmp2 = Abus</p>
+          <p align="justify">Executa div(na ULA) -&gt; Gera flags<br />
+            Abus = quociente<br />
+            Reg-AL = Abus<br />
+            Abus = resto<br />
+            Reg-AH = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">&nbsp;</p>
+          <p align="justify"><strong>Instru&ccedil;&atilde;o NOT</strong></p>
+          <p align="justify"><strong>Modifica&ccedil;&atilde;o das  Flags:</strong> </p>
+        </blockquote>
+        
+        <div align="center">
+          <table border="1" cellpadding="0">
+            <tr>
+              <td><br />
+                C </td>
+              <td><p>Z</p></td>
+              <td><p>S</p></td>
+              <td><p>O</p></td>
+              <td><p>P</p></td>
+              <td><p>A</p></td>
+            </tr>
+            <tr>
+              <td colspan="6"><p>unchanged</p></td>
+            </tr>
+              </table>
+        </div>
+          <blockquote>
+          <p align="justify"><strong>Funcionamento:</strong></p>
+          <p align="justify">not Reg1<br />
+            Abus = Reg1<br />
+            tmp1 = Abus</p>
+          <p align="justify">Executa not(na ULA) -&gt; Gera flags<br />
+            Abus = resultado<br />
+            Re1 = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">not memoria<br />
+            Abus = memoria[Op1]<br />
+            tmp1 = Abus</p>
+          <p align="justify">Executa not(na ULA) -&gt; Gera flags<br />
+            Abus = resultado<br />
+            memoria[Op1] = Abus</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">&nbsp;</p>
+          <p align="justify"><strong>Instru&ccedil;&atilde;o CMP</strong></p>
+          <p align="justify"><strong>Modifica&ccedil;&atilde;o das  Flags:</strong> </p>
+        </blockquote>
+        
+        <div align="center">
+          <table border="1" cellpadding="0">
+            <tr>
+              <td><br />
+                C </td>
+              <td><p>Z</p></td>
+              <td><p>S</p></td>
+              <td><p>O</p></td>
+              <td><p>P</p></td>
+              <td><p>A</p></td>
+            </tr>
+            <tr>
+              <td><p>r</p></td>
+              <td><p>r</p></td>
+              <td><p>r</p></td>
+              <td><p>r</p></td>
+              <td><p>r</p></td>
+              <td><p>r</p></td>
+            </tr>
+              </table>
+        </div>
+          <blockquote>
+          <p align="justify"><strong>Funcionamento:</strong></p>
+          <p align="justify">cmp reg1, reg2<br />
+            Abus = reg1<br />
+            tmp1 = Abus<br />
+            Abus = reg2<br />
+            tmp2 = Abus</p>
+          <p align="justify">sub tmp1, tmp2</p>
+          <p align="justify">Executa cmp -&gt; Gera flags</p>
+        </blockquote>
+        <div> </div>
+        <blockquote>
+          <p align="justify">&nbsp;</p>
+          <p align="justify">cmp reg1, mem&oacute;ria<br />
+            Abus = reg1<br />
+            tmp1 = Abus<br />
+            Abus = memoria[op1]<br />
+            tmp2 = Abus</p>
+          <p align="justify">sub tmp1, tmp2</p>
+          <p align="justify">Executa cmp -&gt; Gera flags</p>
+        </blockquote>
+        <div> </div>
+        <blockquote>
+          <p align="justify">&nbsp;</p>
+          <p align="justify">cmp memoria, reg1<br />
+            Abus = memoria[op1]<br />
+            tmp1 = Abus<br />
+            Abus = reg1<br />
+            tmp2 = Abus</p>
+          <p align="justify">sub tmp1, tmp2</p>
+          <p align="justify">Executa cmp -&gt; Gera flags</p>
+        </blockquote>
+        <div> </div>
+        <blockquote>
+          <p align="justify">&nbsp;</p>
+          <p align="justify">cmp reg1, imediato<br />
+            Abus = reg1<br />
+            tmp1 = Abus<br />
+            Abus = imediato<br />
+            tmp2 = Abus</p>
+          <p align="justify">sub tmp1, tmp2</p>
+          <p align="justify">Executa cmp -&gt; Gera flags<br />
+            ______________________________________________________________________</p>
+          <p align="justify">cmp memoria, imediato<br />
+            Abus = memoria[op1]<br />
+            tmp1 = Abus<br />
+            Abus = imediato<br />
+            tmp2 = Abus</p>
+          <p align="justify">sub tmp1, tmp2</p>
+          <p align="justify">Executa cmp -&gt; Gera flags</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify">&nbsp;</p>
+          <p align="justify"><strong>Instru&ccedil;&atilde;o JMP</strong></p>
+          <p align="justify"><strong>Modifica&ccedil;&atilde;o das  Flags:</strong></p>
+        </blockquote>
+        
+        <div align="center">
+          <table border="1" cellpadding="0">
+            <tr>
+              <td><br />
+                C </td>
+              <td><p>Z</p></td>
+              <td><p>S</p></td>
+              <td><p>O</p></td>
+              <td><p>P</p></td>
+              <td><p>A</p></td>
+            </tr>
+            <tr>
+              <td colspan="6"><p>unchanged</p></td>
+            </tr>
+              </table>
+        </div>
+          <blockquote>
+          <p align="justify"><strong>Funcionamento:</strong></p>
+          <p align="justify">jmp label<br />
+            IP = endere&ccedil;o destino</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify"><strong>Instru&ccedil;&atilde;o JE</strong></p>
+          <p align="justify"><strong>Modifica&ccedil;&atilde;o das  Flags:</strong></p>
+        </blockquote>
+        
+        <div align="center">
+          <table border="1" cellpadding="0">
+            <tr>
+              <td><br />
+                C </td>
+              <td><p>Z</p></td>
+              <td><p>S</p></td>
+              <td><p>O</p></td>
+              <td><p>P</p></td>
+              <td><p>A</p></td>
+            </tr>
+            <tr>
+              <td colspan="6"><p>unchanged</p></td>
+            </tr>
+              </table>
+        </div>
+          <blockquote>
+          <p align="justify"><strong>Funcionamento:</strong></p>
+          <p align="justify">je label<br />
+            if (Zero_Flag == 1)<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IP = endere&ccedil;o  destino<br />
+            ______________________________________________________________________</p>
+          <p align="justify"><strong>&nbsp;</strong></p>
+          <p align="justify"><strong>Instru&ccedil;&atilde;o JNE</strong></p>
+          <p align="justify"><strong>Modifica&ccedil;&atilde;o das  Flags:</strong></p>
+        </blockquote>
+        
+        <div align="center">
+          <table border="1" cellpadding="0">
+            <tr>
+              <td><br />
+                C </td>
+              <td><p>Z</p></td>
+              <td><p>S</p></td>
+              <td><p>O</p></td>
+              <td><p>P</p></td>
+              <td><p>A</p></td>
+            </tr>
+            <tr>
+              <td colspan="6"><p>unchanged</p></td>
+            </tr>
+              </table>
+        </div>
+          <blockquote>
+          <p align="justify"><strong>Funcionamento:</strong></p>
+          <p align="justify">je label<br />
+            if (Zero_Flag == 0)<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IP = endere&ccedil;o  destino<br />
+            ______________________________________________________________________</p>
+          <p align="justify"><strong>Instru&ccedil;&atilde;o JB</strong></p>
+          <p align="justify"><strong>Modifica&ccedil;&atilde;o das  Flags:</strong></p>
+        </blockquote>
+        
+        <div align="center">
+          <table border="1" cellpadding="0">
+            <tr>
+              <td><br />
+                C </td>
+              <td><p>Z</p></td>
+              <td><p>S</p></td>
+              <td><p>O</p></td>
+              <td><p>P</p></td>
+              <td><p>A</p></td>
+            </tr>
+            <tr>
+              <td colspan="6"><p>unchanged</p></td>
+            </tr>
+              </table>
+        </div>
+          <blockquote>
+          <p align="justify"><strong>Funcionamento:</strong></p>
+          <p align="justify">jb label<br />
+            if (Carry_Flag == 1)<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IP = endere&ccedil;o  destino</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify"><strong>Instru&ccedil;&atilde;o JNB</strong></p>
+          <p align="justify"><strong>Modifica&ccedil;&atilde;o das  Flags:</strong></p>
+        </blockquote>
+        
+        <div align="center">
+          <table border="1" cellpadding="0">
+            <tr>
+              <td><br />
+                C </td>
+              <td><p>Z</p></td>
+              <td><p>S</p></td>
+              <td><p>O</p></td>
+              <td><p>P</p></td>
+              <td><p>A</p></td>
+            </tr>
+            <tr>
+              <td colspan="6"><p>unchanged</p></td>
+            </tr>
+              </table>
+        </div>
+          <blockquote>
+          <p align="justify"><strong>Funcionamento:</strong></p>
+          <p align="justify">jnb label<br />
+            if (Carry_Flag == 0)<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IP = endere&ccedil;o  destino</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify"><strong>Instru&ccedil;&atilde;o JA</strong></p>
+          <p align="justify"><strong>Modifica&ccedil;&atilde;o das  Flags:</strong></p>
+        </blockquote>
+        
+        <div align="center">
+          <table border="1" cellpadding="0">
+            <tr>
+              <td><br />
+                C </td>
+              <td><p>Z</p></td>
+              <td><p>S</p></td>
+              <td><p>O</p></td>
+              <td><p>P</p></td>
+              <td><p>A</p></td>
+            </tr>
+            <tr>
+              <td colspan="6"><p>unchanged</p></td>
+            </tr>
+              </table>
+        </div>
+          <div align="center"></div>
+          <blockquote>
+          <p align="justify"><strong>Funcionamento:</strong></p>
+          <p align="justify">ja label<br />
+            if (Carry  Flag == 1 &amp;&amp; Zero_Flag == 0)<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IP = endere&ccedil;o destino</p>
+          <p align="justify">______________________________________________________________________</p>
+          <p align="justify"><strong>Instru&ccedil;&atilde;o JNA</strong></p>
+          <p align="justify"><strong>Modifica&ccedil;&atilde;o das  Flags:</strong></p>
+        </blockquote>
+        
+        <div align="center">
+          <table border="1" cellpadding="0">
+            <tr>
+              <td><br />
+                C </td>
+              <td><p>Z</p></td>
+              <td><p>S</p></td>
+              <td><p>O</p></td>
+              <td><p>P</p></td>
+              <td><p>A</p></td>
+            </tr>
+            <tr>
+              <td colspan="6"><p>unchanged</p></td>
+            </tr>
+              </table>
+        </div>
+          <blockquote>
+          <p align="justify"><strong>Funcionamento:</strong></p>
+          <p align="justify">jna label<br />
+            if (Carry Flag  == 0 &amp;&amp; Zero_Flag == 1)<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IP = endere&ccedil;o destino</p>
+      </blockquote>        <p>&nbsp;</p>      </td>
+      <td width="62" background="imagens/right-side.png"></td>
+    </tr>
+    <tr>
+      <td width="62" background="imagens/left-side.png"></td>
+      <td width="676" bgcolor="#FFFFFF"><div align="center"> 
+        <p>Copyright &copy; 2007 Yamada-san.  All Rights Reserved.</p>
+        <p>&nbsp;</p>
+      </div></td>
+      <td width="62" background="imagens/right-side.png"></td>
+    </tr>
+  </table>
+</div>
+</body>
+
+</html>
